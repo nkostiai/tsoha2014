@@ -1,0 +1,4 @@
+DROP TABLE Viesti;
+DROP TABLE Kayttaja;
+DROP TABLE Aihe;
+DROP TABLE Kategoria;
