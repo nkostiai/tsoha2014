@@ -16,5 +16,26 @@ VALUES('Arto', 'asd', 'maito@auto.com');
 INSERT INTO Kayttaja(Nimi, Salasana, Sahkoposti)
 VALUES('Pekka', 'asdasd', 'palo@auto.com');
 
+INSERT INTO Kayttaja(Nimi, Salasana, Sahkoposti)
+VALUES('Kalle', 'asdasd', 'palo@auto.com');
+
+INSERT INTO Kayttaja(Nimi, Salasana, Sahkoposti)
+VALUES('Plöö', 'asdasd', 'palo@auto.com');
+
+INSERT INTO Kayttaja(Nimi, Salasana, Sahkoposti)
+VALUES('Plää', 'asdasd', 'palo@auto.com');
+
 INSERT INTO Viesti(AiheID, Aloitusviesti, Kirjoitusaika, viestin_sisalto, kirjoittaja)
 VALUES(1, TRUE, current_timestamp, 'AAAAAAAAAAAAAAA', 1);
+
+INSERT INTO Viesti(AiheID, Aloitusviesti, Kirjoitusaika, viestin_sisalto, kirjoittaja)
+VALUES(1, FALSE, current_timestamp, 'GAAAAAAAAA', 1);
+
+INSERT INTO Viesti(AiheID, Aloitusviesti, Kirjoitusaika, viestin_sisalto, kirjoittaja)
+VALUES(1, FALSE, current_timestamp, 'AAAAAAAAFGGGGGAAAAAAA', 3);
+
+INSERT INTO Viesti(AiheID, Aloitusviesti, Kirjoitusaika, viestin_sisalto, kirjoittaja)
+VALUES(1, FALSE, current_timestamp, 'ASD', 2);
+
+INSERT INTO Viesti(AiheID, Aloitusviesti, Kirjoitusaika, viestin_sisalto, kirjoittaja)
+VALUES(1, FALSE, current_timestamp, 'VOI NENÄ', 4);

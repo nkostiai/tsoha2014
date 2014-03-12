@@ -17,4 +17,5 @@ class Kayttaja {
 
   /* Tähän gettereitä ja settereitä */
   
+  
 }

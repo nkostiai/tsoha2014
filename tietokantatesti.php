@@ -6,5 +6,16 @@ $sql = "select * from kayttaja";
 $kysely = $yhteys->prepare($sql);
 $kysely->execute();
 
-$assosiaatiotaulu = $kysely->fetchAll();
-echo $assosiaatiotaulu[0]['nimi'];
+$tulokset = array();
+foreach($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos){
+    
+    $final = $tulos->nimi.=" ";
+    $final = $final.=$tulos->kayttajaid.=" ";
+    $final = $final.=$tulos->sahkoposti;
+    echo $final;
+    
+    echo "<br>";
+//    $kayttaja = new Kayttaja();
+//    $kayttaja->setId($tulos->id);
+//    $kayttaja->setTunnus($tulos->tunnus);
+}
