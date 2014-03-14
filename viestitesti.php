@@ -31,40 +31,27 @@
                 <?php
                 $yhteys = new PDO("pgsql:");
                 $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $sql = "select * from viesti";
+                $sql = "SELECT viesti.viestin_sisalto, kayttaja.nimi FROM viesti, kayttaja WHERE viesti.kirjoittaja = kayttaja.kayttajaid ORDER BY kirjoitusaika";
                 $kysely = $yhteys->prepare($sql);
                 $kysely->execute();
 
                 $tulokset = array();
                 foreach ($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
+                    ?>
 
-                    echo "<div class = \"panel panel-default\">";
-                    echo "<div class = \"panel-heading\">";
-                    echo "<h6 class = \"pull-right\">";
-                    echo $tulos->kirjoittaja;
-                    echo "</h6>";
-                    echo "<h3 class = \"panel-title\">Aihe</h3>";
-                    echo "</div>";
-                    echo "<div class = \"panel-body\">";
-                    echo $tulos->viestin_sisalto;
-                    echo "</div>";
-                    echo "</div>";
-                }
+                    <div class = "panel panel-default">
+                        <div class = "panel-heading">
+                            <h6 class = "pull-right">
+                            <?php echo $tulos->nimi; ?>
+                            </h6>
+                            <h3 class = "panel-title">Aihe</h3>
+                        </div>
+                        <div class = "panel-body">
+                         <?php echo $tulos->viestin_sisalto; ?>
+                        </div>
+                    </div>
+                <?php }
                 ?>
-                
-<!--                VIESTIN ALKU 
-                <div class = "panel panel-default">
-                    <div class = "panel-heading">
-                        <h6 class = "pull-right">Kirjoittaja</h6>
-                        <h3 class = "panel-title">Aihe</h3>
-
-                    </div>
-                    <div class = "panel-body">
-                        Viestin sisältö
-                    </div>
-                </div>
-                VIESTIN LOPPU -->
-
 
             </div>
             <ul class = "pager">
