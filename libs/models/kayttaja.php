@@ -38,6 +38,20 @@ class Kayttaja {
       }
   }
   
+  public static function getKayttajaListaus() {
+        $yhteys = getTietokantayhteys();
+        $sql = "SELECT * FROM Kayttaja";
+        $kysely = $yhteys->prepare($sql);
+        $kysely->execute();
+
+        $tulokset = array();
+        foreach ($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
+            $kayttaja = new Kayttaja($tulos->kayttajaid, $tulos->nimi, $tulos->salasana, $tulos->sahkoposti, $tulos->adminstatus, $tulos->porttikielto);
+            $tulokset[] = $kayttaja;
+        }
+        return $tulokset;
+    }
+  
   public function getKayttajaID(){
       return $this->KayttajaID;  
   }

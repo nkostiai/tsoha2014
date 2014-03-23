@@ -1,13 +1,13 @@
 <?php
 
-require_once 'libs/kayttaja.php';
-$lista = Kayttaja::getKayttajaLista();
+require_once 'libs/models/kayttaja.php';
+$lista = Kayttaja::getKayttajaListaus();
 echo "ID  TUNNUS   SALASANA<br>";
 
 foreach ($lista as $tulos) {
-    echo $tulos->getId();
+    echo $tulos->getNimi();
     echo "  ";
-    echo $tulos->getTunnus();
+    echo $tulos->getKayttajaID();
     echo "  ";
     echo $tulos->getSalasana();
     echo "<br>";
