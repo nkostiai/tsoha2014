@@ -20,17 +20,22 @@
                     <li class="active pull-right">Log In</li>
                 </ol>
             </div>
-            <div class="well well-sm">
-            <form class="form-signin" role="form">
-                <h2 class="form-signin-heading">Kirjaudu sisään</h2>
-                <input type="email" class="form-control" placeholder="Email address" required autofocus>
-                <input type="password" class="form-control" placeholder="Password" required>
-                <label class="checkbox">
-                    <input type="checkbox" value="remember-me"> Muista minut
-                </label>
-                <button class="btn btn-primary btn-block btn-sm" type="submit">Kirjaudu sisään</button>
-            </form>
-            </div>
+            <center>
+                <div class="control-group center-block">
+                    <label class="control-label" for="textarea">Otsikko:</label>
+                    <div class="controls center-block">                     
+                        <textarea id="textarea" rows="1" cols="80" name="textarea"></textarea>
+                    </div>
+                    <label class="control-label" for="textarea">Kirjoita viesti:</label>
+                    <div class="controls center-block">                     
+                        <textarea id="textarea" rows="12" cols="100" name="textarea"></textarea>
+                    </div>
+                </div><br>
+                <button type="button" class="btn btn-default center-block">
+                    Lähetä viesti
+                </button>
+                <br>
+            </center>
             <div class="well well-sm">
                 <p>&copy; Company 2014</p>
             </div>

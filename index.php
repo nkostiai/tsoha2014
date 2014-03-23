@@ -1,11 +1,13 @@
-<?php 
-  $tervehdys = "JIPPII PHP!";
-  $morjehdus = "MAITO AUTO";
-?><!DOCTYPE HTML>
-<html>
-<head><title><?php echo $tervehdys; ?></title></head>
-<body>
-  <h1><?php echo $tervehdys; ?></h1>
-  <h2><?php echo $morjehdus; ?></h2>
-</body>
-</html>
+<?php
+
+require_once 'libs/common.php';
+require_once 'libs/models/kategoria.php';
+
+$kategoriat = Kategoria::getKategoriaListaus();
+$linkit = array("Etusivu" => "index.php");
+
+naytaNakyma('etusivu.php', array(
+  "kategoriat" => $kategoriat,
+  "linkit" => $linkit,
+));
+
