@@ -100,4 +100,5 @@ class Kayttaja {
       $this->porttikielto = $banboolean;
   }
   
+  
 }

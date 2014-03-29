@@ -29,7 +29,15 @@ class Kategoria {
         }
         return $tulokset;
     }
-
+    
+    public static function getKategorianNimi($kategoriaid){
+        $yhteys = getTietokantayhteys();
+        $sql = "SELECT nimi FROM kategoria WHERE kategoriaid = $kategoriaid";
+        $kysely = $yhteys->prepare($sql);
+        $kysely->execute();
+        return $kysely->fetch();
+    }
+    
     public function getNimi() {
         return $this->nimi;
     }

@@ -19,7 +19,6 @@ Porttikielto BOOLEAN NOT NULL default FALSE); --onko kayttajalla porttikielto fo
 CREATE TABLE viesti(
 ViestiID SERIAL primary key, --viestin yksilollinen tunniste
 AiheID INTEGER REFERENCES aihe(AiheID), --aihe, johon viesti kuuluu
-Aloitusviesti BOOLEAN NOT NULL default FALSE, --onko viesti aiheen aloitusviesti
 Kirjoitusaika TIMESTAMP NOT NULL, --Koska viesti on kirjoitettu
 Viimeisin_muokkaus TIMESTAMP, --Koska viestia on viimeksi muokattu
 viestin_sisalto VARCHAR(4000) NOT NULL, --Viestin tekstuaalinen sisalto
