@@ -136,4 +136,6 @@ VALUES(5, current_timestamp, 'AAAAAAAAaegeageagaerAAAAAAA', 5, 'TESTIaegeagAIHE'
 INSERT INTO Viesti(AiheID, Kirjoitusaika, viestin_sisalto, kirjoittaja, otsikko)
 VALUES(2, current_timestamp, 'AAAAAAargaergerAAAAAAAAA', 5, 'TESTragegreIAIHE');
 
+UPDATE viesti SET (viestin_sisalto, otsikko, viimeisin_muokkaus) = ('AFDASD','SADASD', 'now') WHERE viestiid = 1 RETURNING viimeisin_muokkaus;
+
 

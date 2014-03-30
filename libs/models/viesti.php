@@ -28,14 +28,14 @@ class Viesti {
     public static function getViestiListaus($aihe) {
 
         $yhteys = getTietokantayhteys();
-        $sql = "SELECT viesti.viestiid, viesti.aiheid, viesti.kirjoitusaika, viesti.viimeisin_muokkaus, viesti.viestin_sisalto, kayttaja.nimi AS kirjoittaja, viesti.otsikko FROM viesti, kayttaja WHERE viesti.kirjoittaja = kayttaja.kayttajaid AND viesti.aiheid = $aihe ORDER by kirjoitusaika";
+        $sql = "SELECT viesti.viestiid, viesti.aiheid, to_char(viesti.kirjoitusaika, 'DD-MM-YY  HH24:MI:SS') AS kirjoitusaika, viesti.viimeisin_muokkaus, viesti.viestin_sisalto, kayttaja.nimi AS kirjoittaja, viesti.otsikko FROM viesti, kayttaja WHERE viesti.kirjoittaja = kayttaja.kayttajaid AND viesti.aiheid = $aihe ORDER by kirjoitusaika";
         $kysely = $yhteys->prepare($sql);
         $kysely->execute();
         $tulokset = array();
 
 
         foreach ($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
-            $viesti = new Viesti($tulos->aiheid, $tulos->viimeisinmuokkaus, $tulos->viestin_sisalto, $tulos->kirjoittaja, $tulos->otsikko);
+            $viesti = new Viesti($tulos->aiheid, $tulos->viimeisin_muokkaus, $tulos->viestin_sisalto, $tulos->kirjoittaja, $tulos->otsikko);
             $viesti->setViestiID($tulos->viestiid);
             $viesti->setKirjoitusAika($tulos->kirjoitusaika);
             $tulokset[] = $viesti;
@@ -104,8 +104,8 @@ class Viesti {
     }
 
     public function setViestinSisalto($sisalto) {
-        $this->viestinsisalto = $sisalto;
-        if (trim($this->getViestinSisalto() == '')) {
+        $this->viestin_sisalto = $sisalto;
+        if (trim($this->getViestinSisalto()) == '') {
             $this->virheet['viesti'] = "Viesti ei saa olla tyhjä";
         } else {
             unset($this->virheet['viesti']);
@@ -126,6 +126,11 @@ class Viesti {
 
     public function setOtsikko($otsikko) {
         $this->otsikko = $otsikko;
+        if (trim($this->getOtsikko()) == '') {
+            $this->virheet['viesti'] = "Otsikko ei saa olla tyhjä";
+        } else {
+            unset($this->virheet['viesti']);
+        }
     }
 
     public function lisaaKantaan() {
@@ -137,13 +142,38 @@ class Viesti {
         }
         return $ok;
     }
-
+    
+    public function muokkaaKantaan() {
+        $sql = "UPDATE viesti SET otsikko = ?, viestin_sisalto = ?, viimeisin_muokkaus = ? WHERE viestiid = ? RETURNING viimeisin_muokkaus";
+        $kysely = getTietokantayhteys()->prepare($sql);
+        $muokkaus = $kysely->execute(array($this->getOtsikko(), $this->getViestinSisalto(), "now", $this->getViestiID()));
+        $this->setViimeisinMuokkaus($muokkaus);
+    }
+    
     public function onkoKelvollinen() {
-        return empty($this->virheet);
+        return (trim($this->getViestinSisalto()) == ''||trim($this->getOtsikko()) == '');
+        
     }
 
     public function getVirheet() {
         return $this->virheet;
+    }
+    
+    public static function haeViestiIDlla($id){
+        $yhteys = getTietokantayhteys();
+        $sql = "SELECT * FROM viesti WHERE viestiid = $id";
+        $kysely = $yhteys->prepare($sql);
+        $kysely->execute();
+        foreach ($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
+            $viesti = new Viesti($tulos->aiheid, $tulos->kirjoitusaika, $tulos->viestin_sisalto, $tulos->kirjoittaja, $tulos->otsikko);
+            $tulokset[] = $viesti;
+        }
+        
+        if (empty($tulokset)) {
+            return null;
+        } else {
+            return $tulokset;
+        }
     }
 
 }

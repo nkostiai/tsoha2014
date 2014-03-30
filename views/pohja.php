@@ -4,7 +4,6 @@
         <link href="css/bootstrap-theme.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/jumbotron-narrow.css" rel="stylesheet">
         <link href="css/signin.css" rel="stylesheet">
         <title>TSOHA 2014 - KESKUSTELUFOORUMI</title>
         <meta charset="UTF-8">
