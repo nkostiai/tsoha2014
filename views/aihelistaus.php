@@ -5,7 +5,7 @@
     <div class="alert alert-danger"><?php echo $data->virhe; ?></div>
 <?php endif; ?>
 <!-- sisalto -->
-<a href="uusiviesti.html">
+<a href="uusiaihe.php?kategoria=<?php echo $data->kategoria; ?>">
     <button type="button" class="btn btn-default btn-sm">
         Uusi aihe
     </button>
@@ -15,7 +15,7 @@
     <li class="list-group-item"><a href="aihe.php?aihe=<?php echo $aihe->getid(); ?>"><?php echo $aihe->getNimi(); ?></a></li>
         <?php endforeach ?>
 </ul>
-<a href="uusiviesti.html">
+<a href="uusiaihe.php?kategoria=<?php echo $data->kategoria; ?>">
     <button type="button" class="btn btn-default btn-sm">
         Uusi aihe
     </button>

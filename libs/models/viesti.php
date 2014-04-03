@@ -145,9 +145,15 @@ class Viesti {
     
     public function muokkaaKantaan() {
         $sql = "UPDATE viesti SET otsikko = ?, viestin_sisalto = ?, viimeisin_muokkaus = ? WHERE viestiid = ? RETURNING viimeisin_muokkaus";
-        $kysely = getTietokantayhteys()->prepare($sql);
+        $kysely = getTietokantayhteys()->prepare($sql);    
         $muokkaus = $kysely->execute(array($this->getOtsikko(), $this->getViestinSisalto(), "now", $this->getViestiID()));
         $this->setViimeisinMuokkaus($muokkaus);
+    }
+    
+    public function poistaKannasta(){
+        $sql = "DELETE FROM viesti WHERE viestiid = ?";
+        $kysely = getTietokantayhteys()->prepare($sql);   
+        $kysely->execute(array($this->getViestiID()));
     }
     
     public function onkoKelvollinen() {
@@ -166,6 +172,7 @@ class Viesti {
         $kysely->execute();
         foreach ($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
             $viesti = new Viesti($tulos->aiheid, $tulos->kirjoitusaika, $tulos->viestin_sisalto, $tulos->kirjoittaja, $tulos->otsikko);
+            $viesti->setViestiID($id);
             $tulokset[] = $viesti;
         }
         

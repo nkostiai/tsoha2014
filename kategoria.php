@@ -19,4 +19,5 @@ $linkit = array("Etusivu" => "index.php", "$kategoriannimi[0]" => "kategoria.php
 naytaNakyma('aihelistaus.php', array(
   "aiheet" => $aiheet,
   "linkit" => $linkit,
+  "kategoria" => $kategoria,
 ));

@@ -6,25 +6,43 @@
 <?php endif; ?>
 <!-- sisalto -->
 <form class="form-inline" role="form" 
-      <?php if($data->action === "new"){ ?>
-      
-      action="lahetaviesti.php?aihe=<?php echo $data->aihe; ?>" <?php }
-      else{ ?>
-      action="viestinmuokkaus.php"<?php } ?>
+<?php if ($data->action === "new") { ?>
+
+          action="lahetaviesti.php?aihe=<?php echo $data->aihe; ?>" <?php } else if ($data->action === "modify") {
+    ?>
+          action="viestinmuokkaus.php"<?php } else if ($data->action === "newthread") {
+    ?>
+          action="aiheenluonti.php<?php echo"?kategoria= $data->kategoriaid"; }
+?>
       method="POST">
 
     <div class="control-group center-block">
-
-        <label class="control-label" for="textarea">Otsikko:</label>
+        <?php if ($data->action === "newthread") { ?>
+            <label class="control-label" for="textarea">Aiheen otsikko:</label>
+            <div class="controls center-block">                     
+                <input type="text" id="aiheenotsikko" name="aiheenotsikko" class="input-block-level" placeholder="Viestin otsikko" >
+            </div>
+        <?php } ?>
+        <label class="control-label" for="textarea">Viestin otsikko:</label>
         <div class="controls center-block">                     
             <input type="text" id="otsikko" name="otsikko" class="input-block-level" placeholder="Viestin otsikko" <?php if (isset($data->viesti)) { ?>
-                       value="<?php echo $data->viesti->getOtsikko(); ?>" <?php }?> >
+                       value="<?php echo $data->viesti->getOtsikko(); ?>" <?php } ?> >
         </div>
         <label class="control-label" for="textarea">Kirjoita viesti:</label>
         <div class="controls center-block">                     
-            <textarea rows="10" cols="80" id="viesti" name="viesti" class="input-block-level" placeholder="Kirjoita viesti"><?php if(isset($data->viesti)){ echo $data->viesti->getviestinsisalto(); } ?></textarea>
+            <textarea rows="10" cols="80" id="viesti" name="viesti" class="input-block-level" placeholder="Kirjoita viesti"><?php
+                if (isset($data->viesti)) {
+                    echo $data->viesti->getviestinsisalto();
+                }
+                ?></textarea>
         </div>
-
+        <?php
+        if ($data->action === "modify") {
+            echo "<label class=\"checkbox\">
+                     <input id=\"delete\" name=\"delete\" type=\"checkbox\" value=\"delete\"> Poista viesti
+                  </label>";
+        }
+        ?>
     </div><br>
     <button class="btn btn-primary btn-block btn-sm" type="submit">
         Lähetä viesti

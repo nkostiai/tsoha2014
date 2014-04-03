@@ -8,8 +8,7 @@ class Aihe {
     private $KategoriaID;
     private $nimi;
 
-    public function __construct($aiheID, $kategoriaID, $nimi) {
-        $this->AiheID = $aiheID;
+    public function __construct($kategoriaID, $nimi) {
         $this->kategoriaID = $kategoriaID;
         $this->nimi = $nimi;
     }
@@ -44,7 +43,8 @@ class Aihe {
 
         $tulokset = array();
         foreach ($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
-            $aihe = new Aihe($tulos->aiheid, $tulos->kategoriaid, $tulos->nimi);
+            $aihe = new Aihe($tulos->kategoriaid, $tulos->nimi);
+            $aihe->setID($tulos->aiheid);
             $tulokset[] = $aihe;
         }
         return $tulokset;
@@ -58,7 +58,8 @@ class Aihe {
 
         $tulokset = array();
         foreach ($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
-            $aihe = new Aihe($tulos->aiheid, $tulos->kategoriaid, $tulos->nimi);
+            $aihe = new Aihe($tulos->kategoriaid, $tulos->nimi);
+            $aihe->setID($tulos->aiheid);
             $tulokset[] = $aihe;
         }
         
@@ -67,6 +68,16 @@ class Aihe {
         } else {
             return $tulokset;
         }
+    }
+    
+    public function lisaaKantaan() {
+        $sql = "INSERT INTO aihe(kategoriaid, nimi) VALUES(?,?) RETURNING aiheid";
+        $kysely = getTietokantayhteys()->prepare($sql);
+        $ok = $kysely->execute(array($this->getKategoria(), $this->getNimi()));
+        if ($ok) {
+            $this->setID($kysely->fetchColumn());
+        }
+        return $ok;
     }
 
     public function setKategoria($uusikategoria) {
