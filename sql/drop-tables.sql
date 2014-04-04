@@ -1,3 +1,4 @@
+DROP TABLE Luetut;
 DROP TABLE Viesti;
 DROP TABLE Kayttaja;
 DROP TABLE Aihe;

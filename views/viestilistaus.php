@@ -5,11 +5,13 @@
     <div class="alert alert-danger"><?php echo $data->virhe; ?></div>
 <?php endif; ?>
 <!-- sisalto -->
+<?php if (isset($_SESSION['kirjautunut'])): ?>
 <a href="uusiviesti.php?aihe=<?php echo $data->aihe; ?>">
     <button type="button" class="btn btn-default btn-sm">
         Uusi viesti
     </button>
 </a> <br><br>
+<?php endif ?>
 <div class="well">
     <?php foreach ($data->viestit as $viesti): ?>
         <div class = "panel panel-default">
@@ -33,8 +35,10 @@
         </div>
     <?php endforeach ?>
 </div>
+<?php if (isset($_SESSION['kirjautunut'])): ?>
 <a href="uusiviesti.php?aihe=<?php echo $data->aihe; ?>">
     <button type="button" class="btn btn-default btn-sm">
         Uusi viesti
     </button>
-</a>
+</a> <br><br>
+<?php endif ?>

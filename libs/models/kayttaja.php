@@ -23,7 +23,7 @@ class Kayttaja {
 
   /* Tähän gettereitä ja settereitä */
    public static function etsiKayttajaTunnuksilla($kayttaja, $salasana){
-      $sql = "SELECT kayttajaid, nimi, salasana FROM kayttaja WHERE nimi = ? AND salasana = ? LIMIT 1";
+      $sql = "SELECT * FROM kayttaja WHERE nimi = ? AND salasana = ? LIMIT 1";
       $kysely = getTietokantayhteys()->prepare($sql);
       $kysely->execute(array($kayttaja, $salasana));
       

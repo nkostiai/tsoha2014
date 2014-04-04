@@ -46,8 +46,8 @@ VALUES(2, 'Ole esittelematta itsesi');
 INSERT INTO Aihe (KategoriaID, Nimi)
 VALUES(4, 'Ole esittelematta itsesi');
 
-INSERT INTO Kayttaja(Nimi, Salasana, Sahkoposti)
-VALUES('Arto', 'asd', 'maito@auto.com');
+INSERT INTO Kayttaja(Nimi, Salasana, Sahkoposti, Adminstatus)
+VALUES('Arto', 'asd', 'maito@auto.com', TRUE);
 
 INSERT INTO Kayttaja(Nimi, Salasana, Sahkoposti)
 VALUES('Pekka', 'asdasd', 'palo@auto.com');

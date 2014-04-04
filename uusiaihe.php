@@ -14,7 +14,6 @@ $linkit = array("Etusivu" => "index.php", "Kategoria" => "kategoria.php", "Aihe"
 
 naytaNakyma('viestiform.php', array(
     "linkit" => $linkit,
-    "aihe" => $aihe,
     "action" => "newthread",
     "kategoriaid" => $kategoriaid
 ));

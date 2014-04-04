@@ -13,8 +13,15 @@ $sisalto = $_POST['viesti'];
 $otsikko = $_POST['otsikko'];
 
 $uusiAihe = new Aihe($kategoria, $aiheotsikko);
-$uusiAihe->lisaaKantaan();
-$aiheid = $uusiAihe->getId();
+if($uusiAihe->onkoValidi()){
+    $uusiAihe->lisaaKantaan();
+    $aiheid = $uusiAihe->getId();
+}
+else{
+    $_SESSION['ilmoitus'] = "Aiheen otsikko ei saa olla tyhjä.";
+    header('Location: index.php');
+}
+
 
 $uusiviesti = new Viesti($aiheid, null, $sisalto, $kayttaja->getkayttajaid(), $otsikko);
 if(!$uusiviesti->onkoKelvollinen()){
@@ -23,6 +30,6 @@ if(!$uusiviesti->onkoKelvollinen()){
     header('Location: index.php');
 }
 else{
-    $_SESSION['ilmoitus'] = "Viestissä oli virheitä.";
+    $_SESSION['ilmoitus'] = "Otsikko tai viesti eivät saa olla tyhjiä.";
     header('Location: index.php');
 }

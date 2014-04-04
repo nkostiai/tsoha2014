@@ -10,10 +10,8 @@ $uusiviesti = $_SESSION['muokattava'];
 unset($_SESSION['muokattava']);
 
 if (isset($_POST['delete'])){
-    echo "päästiin iffiin";
     //poistetaan viesti.
     $uusiviesti->poistaKannasta();
-    echo "päästiin suoritettiin poistakannasta";
     $_SESSION['ilmoitus'] = "Viesti poistettu onnistuneesti. ";
     header('Location: index.php');
 }

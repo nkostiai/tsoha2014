@@ -11,7 +11,9 @@
     </head>
     <body>
         <div class="container">
+            
            <?php
+           
            require 'views/'.$sivu;
            ?>
             <div class="well well-sm">

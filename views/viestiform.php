@@ -6,23 +6,24 @@
 <?php endif; ?>
 <!-- sisalto -->
 <form class="form-inline" role="form" 
-<?php if ($data->action === "new") { ?>
 
-          action="lahetaviesti.php?aihe=<?php echo $data->aihe; ?>" <?php } else if ($data->action === "modify") {
-    ?>
-          action="viestinmuokkaus.php"<?php } else if ($data->action === "newthread") {
-    ?>
-          action="aiheenluonti.php<?php echo"?kategoria= $data->kategoriaid"; }
-?>
+      <?php if ($data->action === "new"): ?>
+          action="lahetaviesti.php?aihe=<?php echo $data->aihe; ?>" 
+      <?php elseif ($data->action === "modify"): ?>
+          action="viestinmuokkaus.php"
+      <?php elseif ($data->action === "newthread"): ?>
+          action="aiheenluonti.php?kategoria=<?php echo $data->kategoriaid?>";
+  <?php endif
+      ?>
       method="POST">
 
-    <div class="control-group center-block">
-        <?php if ($data->action === "newthread") { ?>
+      <div class="control-group center-block">
+<?php if ($data->action === "newthread") { ?>
             <label class="control-label" for="textarea">Aiheen otsikko:</label>
             <div class="controls center-block">                     
                 <input type="text" id="aiheenotsikko" name="aiheenotsikko" class="input-block-level" placeholder="Viestin otsikko" >
             </div>
-        <?php } ?>
+<?php } ?>
         <label class="control-label" for="textarea">Viestin otsikko:</label>
         <div class="controls center-block">                     
             <input type="text" id="otsikko" name="otsikko" class="input-block-level" placeholder="Viestin otsikko" <?php if (isset($data->viesti)) { ?>

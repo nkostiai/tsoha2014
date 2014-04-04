@@ -3,7 +3,7 @@ require_once 'models/kayttaja.php';
 session_start();
 if (!empty($_SESSION['ilmoitus'])):
     ?>
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" >
     <?php echo $_SESSION['ilmoitus']; ?>
     </div>
     <?php

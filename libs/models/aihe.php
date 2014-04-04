@@ -79,9 +79,13 @@ class Aihe {
         }
         return $ok;
     }
-
+    
+    public function onkoValidi(){
+        return (!trim($this->getNimi()) == '');
+    }
+    
     public function setKategoria($uusikategoria) {
-        $this->KategoriaID = $uusinimi;
+        $this->KategoriaID = $uusikategoria;
     }
 
 }

@@ -9,8 +9,10 @@
 
             $kayttaja = $_SESSION['kirjautunut'];
             ?><li class = "active pull-right"><a href="logout.php"><?php echo "Kirjaudu ulos: " . $kayttaja->getNimi(); ?></a>
-
-            </li>
+            </li> 
+            <?php if($kayttaja->getAdmin()==1): ?>
+              <li class = "active pull-right"><a href="admin.php"><?php echo "Adminpanel" . $kayttaja->getNimi(); ?></a></li>   
+            <?php endif ?>
 
 
         <?php } else {
