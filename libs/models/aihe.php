@@ -80,6 +80,14 @@ class Aihe {
         return $ok;
     }
     
+    public function onkoUusiaViesteja($kayttaja){
+        $yhteys = getTietokantayhteys();
+        $sql = "SELECT count(*) FROM viesti WHERE aiheid = ? AND viesti.viestiid NOT IN (SELECT viesti.viestiid FROM luetut, viesti WHERE luetut.kayttajaid = ? AND luetut.viestiid = viesti.viestiid)";
+        $kysely = $yhteys->prepare($sql);
+        $kysely->execute(array($this->getId(), $kayttaja->getKayttajaID()));
+        return $kysely->fetchColumn();
+    }
+    
     public function onkoValidi(){
         return (!trim($this->getNimi()) == '');
     }

@@ -11,7 +11,7 @@
             ?><li class = "active pull-right"><a href="logout.php"><?php echo "Kirjaudu ulos: " . $kayttaja->getNimi(); ?></a>
             </li> 
             <?php if($kayttaja->getAdmin()==1): ?>
-              <li class = "active pull-right"><a href="admin.php"><?php echo "Adminpanel" . $kayttaja->getNimi(); ?></a></li>   
+              <li class = "active pull-right"><a href="admin.php"><?php echo "Adminpanel "; ?></a></li>   
             <?php endif ?>
 
 

@@ -13,6 +13,7 @@ $otsikko = $_POST['otsikko'];
 $uusiviesti = new Viesti($aihe, null, $sisalto, $kayttaja->getkayttajaid(), $otsikko);
 if(!$uusiviesti->onkoKelvollinen()){
     $uusiviesti->lisaaKantaan();
+    $uusiviesti->asetaLuetuksi($kayttaja);
     $_SESSION['ilmoitus'] = "Viesti lisätty onnistuneesti.";
     header('Location: index.php');
 }

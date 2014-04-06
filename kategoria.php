@@ -14,10 +14,24 @@ require_once 'libs/models/kategoria.php';
 
 $aiheet = Aihe::getAiheListaus($kategoria);
 $kategoriannimi = Kategoria::getKategorianNimi($kategoria);
+
+$uudetViestit = array();
+if (isset($_SESSION['kirjautunut'])) {
+    $kayttaja = $_SESSION['kirjautunut'];
+    foreach ($aiheet as $aihe) {
+        if ($aihe->onkoUusiaViesteja($kayttaja)) {
+            $uudetViestit[$aihe->getId()] = 1;
+        } else {
+            $uudetViestit[$aihe->getId()] = 0;
+        }
+    }
+}
+
 $linkit = array("Etusivu" => "index.php", "$kategoriannimi[0]" => "kategoria.php?kategoria=$kategoria");
 
 naytaNakyma('aihelistaus.php', array(
   "aiheet" => $aiheet,
   "linkit" => $linkit,
   "kategoria" => $kategoria,
+  "uudetviestit" => $uudetViestit,
 ));

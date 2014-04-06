@@ -165,6 +165,25 @@ class Viesti {
         return $this->virheet;
     }
     
+    public function asetaLuetuksi($kayttaja){
+        $sql = "INSERT INTO luetut(kayttajaid, viestiid) VALUES (?, ?)";
+        $kysely = getTietokantayhteys()->prepare($sql);
+        $kysely->execute(array($kayttaja->getKayttajaID(), $this->getViestiID()));
+    }
+    
+    public function onkoLukenut($kayttaja){
+        $sql = "SELECT COUNT(*) AS CNT FROM luetut WHERE kayttajaid = ? AND viestiid = ?";
+        $kysely = getTietokantayhteys()->prepare($sql);
+        $kysely->execute(array($kayttaja->getKayttajaID(), $this->getViestiID()));
+        $tulos = $kysely->fetchColumn();
+        if($tulos > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
     public static function haeViestiIDlla($id){
         $yhteys = getTietokantayhteys();
         $sql = "SELECT * FROM viesti WHERE viestiid = $id";
