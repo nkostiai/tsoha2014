@@ -27,7 +27,7 @@ otsikko VARCHAR(100) NOT NULL);--Viestin otsikko.
 
 CREATE TABLE luetut(
 kayttajaid integer references kayttaja(kayttajaid) ON UPDATE CASCADE ON DELETE CASCADE,
-viestiid integer references viesti(viestiid) ON UPDATE CASCADE,
+viestiid integer references viesti(viestiid) ON UPDATE CASCADE ON DELETE CASCADE, 
 CONSTRAINT viesti_kayttajaid PRIMARY KEY (kayttajaid, viestiid)
 );
 
