@@ -39,7 +39,6 @@ class Viesti {
             $viesti->setViestiID($tulos->viestiid);
             $viesti->setKirjoitusAika($tulos->kirjoitusaika);
             $tulokset[] = $viesti;
-            
         }
         return $tulokset;
     }
@@ -133,58 +132,66 @@ class Viesti {
         }
     }
 
-    public function lisaaKantaan() {
+    public function lisaaKantaan($kayttaja) {
         $sql = "INSERT INTO viesti(aiheid, kirjoitusaika, viestin_sisalto, kirjoittaja, otsikko) VALUES(?,?,?,?,?) RETURNING viestiid";
         $kysely = getTietokantayhteys()->prepare($sql);
         $ok = $kysely->execute(array($this->getAiheID(), "now", $this->getViestinSisalto(), $this->getKirjoittaja(), $this->getOtsikko()));
         if ($ok) {
             $this->setViestiID($kysely->fetchColumn());
+            $this->asetaLuetuksi($kayttaja);
         }
         return $ok;
     }
-    
+
     public function muokkaaKantaan() {
         $sql = "UPDATE viesti SET otsikko = ?, viestin_sisalto = ?, viimeisin_muokkaus = ? WHERE viestiid = ? RETURNING viimeisin_muokkaus";
-        $kysely = getTietokantayhteys()->prepare($sql);    
+        $kysely = getTietokantayhteys()->prepare($sql);
         $muokkaus = $kysely->execute(array($this->getOtsikko(), $this->getViestinSisalto(), "now", $this->getViestiID()));
         $this->setViimeisinMuokkaus($muokkaus);
     }
-    
-    public function poistaKannasta(){
+
+    public function poistaKannasta() {
         $sql = "DELETE FROM viesti WHERE viestiid = ?";
-        $kysely = getTietokantayhteys()->prepare($sql);   
+        $kysely = getTietokantayhteys()->prepare($sql);
         $kysely->execute(array($this->getViestiID()));
+        $sql = "SELECT COUNT(*) FROM viesti WHERE aiheid = ?";
+        $kysely = getTietokantayhteys()->prepare($sql);
+        $kysely->execute(array($this->getAiheID()));
+        $tulos = $kysely->fetchColumn();
+        if (!($tulos > 0)) {
+            $sql = "DELETE FROM aihe WHERE aiheid = ?";
+            $kysely = getTietokantayhteys()->prepare($sql);
+            $kysely->execute(array($this->getAiheID()));
+        }
     }
-    
+
     public function onkoKelvollinen() {
-        return (trim($this->getViestinSisalto()) == ''||trim($this->getOtsikko()) == '');
-        
+        return (trim($this->getViestinSisalto()) == '' || trim($this->getOtsikko()) == '');
     }
 
     public function getVirheet() {
         return $this->virheet;
     }
-    
-    public function asetaLuetuksi($kayttaja){
+
+    public function asetaLuetuksi($kayttaja) {
         $sql = "INSERT INTO luetut(kayttajaid, viestiid) VALUES (?, ?)";
         $kysely = getTietokantayhteys()->prepare($sql);
         $kysely->execute(array($kayttaja->getKayttajaID(), $this->getViestiID()));
     }
-    
-    public function onkoLukenut($kayttaja){
+
+    public function onkoLukenut($kayttaja) {
         $sql = "SELECT COUNT(*) AS CNT FROM luetut WHERE kayttajaid = ? AND viestiid = ?";
         $kysely = getTietokantayhteys()->prepare($sql);
         $kysely->execute(array($kayttaja->getKayttajaID(), $this->getViestiID()));
         $tulos = $kysely->fetchColumn();
-        if($tulos > 0){
+        if ($tulos > 0) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
-    
-    public static function haeViestiIDlla($id){
+
+    public static function haeViestiIDlla($id) {
         $yhteys = getTietokantayhteys();
         $sql = "SELECT * FROM viesti WHERE viestiid = $id";
         $kysely = $yhteys->prepare($sql);
@@ -194,7 +201,7 @@ class Viesti {
             $viesti->setViestiID($id);
             $tulokset[] = $viesti;
         }
-        
+
         if (empty($tulokset)) {
             return null;
         } else {

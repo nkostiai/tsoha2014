@@ -12,12 +12,12 @@ $sisalto = $_POST['viesti'];
 $otsikko = $_POST['otsikko'];
 $uusiviesti = new Viesti($aihe, null, $sisalto, $kayttaja->getkayttajaid(), $otsikko);
 if(!$uusiviesti->onkoKelvollinen()){
-    $uusiviesti->lisaaKantaan();
-    $uusiviesti->asetaLuetuksi($kayttaja);
+    $uusiviesti->lisaaKantaan($kayttaja);
     $_SESSION['ilmoitus'] = "Viesti lisätty onnistuneesti.";
-    header('Location: index.php');
+    header('Location: aihe.php?aihe='.$aihe);
 }
 else{
-    $_SESSION['ilmoitus'] = "Viestissä oli virheitä.";
-    header('Location: index.php');
+    $_SESSION['varoitus'] = "Viestin otsikko tai sisältö eivät saa olla tyhjiä.";
+    $_SESSION['viesti'] = $uusiviesti;
+    header('Location: uusiviesti.php?aihe='.$aihe);
 }

@@ -13,10 +13,10 @@ if (isset($_GET['viesti'])) {
 
 $muokattavaviesti = Viesti::haeViestiIDlla($viestinumero);
 $_SESSION['muokattava'] = $muokattavaviesti[0];
+$_SESSION['viesti'] = $_SESSION['muokattava'];
 $linkit = array("Etusivu" => "index.php", "Kategoria" => "kategoria.php", "Aihe" => "aihe.php");
 naytaNakyma('viestiform.php', array(
     "linkit" => $linkit,
-    "viesti" => $muokattavaviesti[0],
     "action" => "modify"
 ));
 

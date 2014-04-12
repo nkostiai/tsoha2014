@@ -46,6 +46,14 @@ class Kategoria {
         return $kysely->fetchColumn();
     }
     
+    public function getNimiById($kategoriaid){
+        $yhteys = getTietokantayhteys();
+        $sql = "SELECT nimi FROM kategoria where kategoriaid = ?";
+        $kysely = $yhteys->prepare($sql);
+        $kysely->execute(array($kategoriaid));
+        return $kysely->fetchColumn();
+    }
+    
     public function getNimi() {
         return $this->nimi;
     }

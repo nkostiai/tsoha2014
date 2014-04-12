@@ -26,7 +26,7 @@ if(!$uusiviesti->onkoKelvollinen()){
     header('Location: index.php');
 }
 else{
-    $_SESSION['ilmoitus'] = "Viestissä oli virheitä.";
+    $_SESSION['varoitus'] = "Viestissä oli virheitä.";
     header('Location: index.php');
 }
 }

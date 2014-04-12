@@ -18,18 +18,19 @@ if($uusiAihe->onkoValidi()){
     $aiheid = $uusiAihe->getId();
 }
 else{
-    $_SESSION['ilmoitus'] = "Aiheen otsikko ei saa olla tyhjä.";
-    header('Location: index.php');
+    $_SESSION['varoitus'] = "Aiheen otsikko ei saa olla tyhjä.";
+    header('Location: uusiaihe.php?kategoria='.$kategoria);
 }
 
 
 $uusiviesti = new Viesti($aiheid, null, $sisalto, $kayttaja->getkayttajaid(), $otsikko);
 if(!$uusiviesti->onkoKelvollinen()){
-    $uusiviesti->lisaaKantaan();
+    $uusiviesti->lisaaKantaan($kayttaja);
     $_SESSION['ilmoitus'] = "Viesti lisätty onnistuneesti.";
     header('Location: index.php');
 }
 else{
-    $_SESSION['ilmoitus'] = "Otsikko tai viesti eivät saa olla tyhjiä.";
-    header('Location: index.php');
+    $_SESSION['varoitus'] = "Otsikko tai viesti eivät saa olla tyhjiä.";
+    $_SESSION['viesti'] = $uusiviesti;
+    header('Location: uusiaihe.php?kategoria='.$kategoria);
 }

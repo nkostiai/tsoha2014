@@ -88,6 +88,22 @@ class Aihe {
         return $kysely->fetchColumn();
     }
     
+    public function getNimiByAiheId($aiheid){
+        $yhteys = getTietokantayhteys();
+        $sql = "SELECT nimi FROM aihe where aiheid = ?";
+        $kysely = $yhteys->prepare($sql);
+        $kysely->execute(array($aiheid));
+        return $kysely->fetchColumn();
+    }
+    
+    public function getKategoriaNumeroByAiheId($aiheid){
+        $yhteys = getTietokantayhteys();
+        $sql = "SELECT kategoriaid FROM aihe where aiheid = ?";
+        $kysely = $yhteys->prepare($sql);
+        $kysely->execute(array($aiheid));
+        return $kysely->fetchColumn();
+    }
+    
     public function onkoValidi(){
         return (!trim($this->getNimi()) == '');
     }

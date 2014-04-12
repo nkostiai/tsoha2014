@@ -18,9 +18,8 @@ $salasana = $_POST["password"];
 
 /* Tarkistetaan onko parametrina saatu oikeat tunnukset */
 $kirjautuja = Kayttaja::etsiKayttajaTunnuksilla($kayttaja, $salasana);
-if ($kirjautuja->getNimi() === $kayttaja && $kirjautuja->getSalasana() === $salasana) {
+if ($kirjautuja->getNimi() === $kayttaja && $kirjautuja->getSalasana() == $salasana) {
     $_SESSION['kirjautunut'] = $kirjautuja;
-    /* Jos tunnus on oikea, ohjataan käyttäjä sopivalla HTTP-otsakkeella kissalistaan. */
     header('Location: index.php');
 } else {
     /* Väärän tunnuksen syöttänyt saa eteensä kirjautumislomakkeen. */
