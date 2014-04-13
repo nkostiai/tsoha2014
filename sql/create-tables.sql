@@ -6,7 +6,7 @@ Kuvaus varchar(300) not null);--kategorian kuvaus
 CREATE TABLE aihe(
 AiheID SERIAL primary key, --aiheen yksilollinen tunniste
 KategoriaID INTEGER REFERENCES kategoria(kategoriaid), --kategoria, johon aihe kuuluu
-Nimi varchar(30) not null); --Aiheen nimi
+Nimi varchar(300) not null); --Aiheen nimi
 
 CREATE TABLE kayttaja(
 KayttajaID SERIAL primary key, --kayttajan yksiloiva ID
@@ -23,7 +23,7 @@ Kirjoitusaika TIMESTAMP NOT NULL, --Koska viesti on kirjoitettu
 Viimeisin_muokkaus TIMESTAMP, --Koska viestia on viimeksi muokattu
 viestin_sisalto VARCHAR(4000) NOT NULL, --Viestin tekstuaalinen sisalto
 Kirjoittaja INTEGER REFERENCES kayttaja(kayttajaID), --Viestin kirjoittanut kayttaja.
-otsikko VARCHAR(100) NOT NULL);--Viestin otsikko.
+otsikko VARCHAR(300) NOT NULL);--Viestin otsikko.
 
 CREATE TABLE luetut(
 kayttajaid integer references kayttaja(kayttajaid) ON UPDATE CASCADE ON DELETE CASCADE,

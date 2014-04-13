@@ -105,7 +105,7 @@ class Aihe {
     }
     
     public function onkoValidi(){
-        return (!trim($this->getNimi()) == '');
+        return (!trim($this->getNimi()) == '' &&  strlen($this->getNimi())<300);
     }
     
     public function setKategoria($uusikategoria) {

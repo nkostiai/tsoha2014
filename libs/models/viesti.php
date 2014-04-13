@@ -28,7 +28,7 @@ class Viesti {
     public static function getViestiListaus($aihe) {
 
         $yhteys = getTietokantayhteys();
-        $sql = "SELECT viesti.viestiid, viesti.aiheid, to_char(viesti.kirjoitusaika, 'DD-MM-YY  HH24:MI:SS') AS kirjoitusaika, viesti.viimeisin_muokkaus, viesti.viestin_sisalto, kayttaja.nimi AS kirjoittaja, viesti.otsikko FROM viesti, kayttaja WHERE viesti.kirjoittaja = kayttaja.kayttajaid AND viesti.aiheid = $aihe ORDER by kirjoitusaika";
+        $sql = "SELECT viesti.viestiid, viesti.aiheid, to_char(viesti.kirjoitusaika, 'DD-MM-YY  HH24:MI:SS') AS kirjoitusaika, viesti.viimeisin_muokkaus, viesti.viestin_sisalto, kayttaja.nimi AS kirjoittaja, viesti.otsikko FROM viesti, kayttaja WHERE viesti.kirjoittaja = kayttaja.kayttajaid AND viesti.aiheid = $aihe ORDER by viesti.kirjoitusaika";
         $kysely = $yhteys->prepare($sql);
         $kysely->execute();
         $tulokset = array();
@@ -42,7 +42,24 @@ class Viesti {
         }
         return $tulokset;
     }
+    
+    public static function getKayttajanViestit($kayttajaid){
+        $yhteys = getTietokantayhteys();
+        $sql = "SELECT viesti.viestiid, viesti.aiheid, to_char(viesti.kirjoitusaika, 'DD-MM-YY  HH24:MI:SS') AS kirjoitusaika, viesti.viimeisin_muokkaus, viesti.viestin_sisalto, kayttaja.nimi AS kirjoittaja, viesti.otsikko FROM viesti, kayttaja WHERE viesti.kirjoittaja = ? ORDER by kirjoitusaika";
+        $kysely = $yhteys->prepare($sql);
+        $kysely->execute(array($kayttajaid));
+        $tulokset = array();
 
+
+        foreach ($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
+            $viesti = new Viesti($tulos->aiheid, $tulos->viimeisin_muokkaus, $tulos->viestin_sisalto, $tulos->kirjoittaja, $tulos->otsikko);
+            $viesti->setViestiID($tulos->viestiid);
+            $viesti->setKirjoitusAika($tulos->kirjoitusaika);
+            $tulokset[] = $viesti;
+        }
+        return $tulokset;
+    }
+    
     public static function lukumaara() {
         $sql = "SELECT COUNT(*) FROM viesti";
         $kysely = getTietokantayhteys()->prepare($sql);
@@ -74,8 +91,6 @@ class Viesti {
             $this->virheet['aihe'] = "Aiheen ID tulee olla numero";
         } else if ($uusiID <= 0) {
             $this->virheet['aihe'] = "Aiheen ID tulee olla positiivinen";
-        } else if (Aihe::etsi($uusiID) === null) {
-            $this->virheet['aihe'] = "Aihetta ei löytynyt tietokannasta";
         } else {
             unset($this->virheet['aihe']);
             $this->AiheID = $uusiID;
@@ -164,9 +179,16 @@ class Viesti {
             $kysely->execute(array($this->getAiheID()));
         }
     }
-
+    
+    public static function poistaKayttajanViestit($id){
+        $viestit = Viesti::getKayttajanViestit($id);
+        foreach($viestit as $viesti){
+            $viesti->poistaKannasta();
+        }
+    }
+    
     public function onkoKelvollinen() {
-        return (trim($this->getViestinSisalto()) == '' || trim($this->getOtsikko()) == '');
+        return (trim($this->getViestinSisalto()) == '' || trim($this->getOtsikko()) == ''||strlen($this->getViestinSisalto())>4000||strlen($this->getOtsikko())>300);
     }
 
     public function getVirheet() {

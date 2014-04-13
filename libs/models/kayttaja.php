@@ -83,6 +83,13 @@ class Kayttaja {
         return $kayttaja;
     }
     
+    public static function poistaKayttajaByID($id){
+        $yhteys = getTietokantayhteys();
+        $sql = "DELETE FROM Kayttaja WHERE kayttajaid = ?";
+        $kysely = $yhteys->prepare($sql);
+        $kysely->execute(array($id));
+    }
+    
     public function muokkaaKantaan($kayttaja){
         $sql = "UPDATE kayttaja SET nimi = ?, salasana = ?, sahkoposti = ?, adminstatus = ?, porttikielto = ? WHERE kayttajaid = ?";
         $kysely = getTietokantayhteys()->prepare($sql);

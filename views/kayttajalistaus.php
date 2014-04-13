@@ -11,9 +11,9 @@
     <!-- Default panel contents -->
         <?php foreach ($data->kayttajat as $kayttaja): 
         echo "<tr><td>".$kayttaja->getkayttajaid()."</td>"
-                . "<td>".$kayttaja->getNimi()."</td>"
-                . "<td>".$kayttaja->getSalasana()."</td>"
-                . "<td>".$kayttaja->getSahkoposti()."</td>"
+                . "<td>".htmlspecialchars($kayttaja->getNimi())."</td>"
+                . "<td>".htmlspecialchars($kayttaja->getSalasana())."</td>"
+                . "<td>".htmlspecialchars($kayttaja->getSahkoposti())."</td>"
                 . "<td>".$kayttaja->getAdmin()."</td>"
                 . "<td>".$kayttaja->getporttikielto()."</td>"
                 . "<td><a href=muokkaakayttajaa.php?kayttaja=".$kayttaja->getkayttajaid().">Muokkaa</a></td></tr>";

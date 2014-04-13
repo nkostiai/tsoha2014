@@ -26,7 +26,7 @@ if(!$uusiviesti->onkoKelvollinen()){
     header('Location: index.php');
 }
 else{
-    $_SESSION['varoitus'] = "Viestissä oli virheitä.";
-    header('Location: index.php');
+    $_SESSION['varoitus'] = "Viestin otsikko ja sisältö eivät saa olla tyhjiä.";
+    header('Location: muokkaaviestia.php?viesti='.$uusiviesti->getviestiid());
 }
 }

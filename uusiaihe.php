@@ -10,7 +10,7 @@ else{
 if (isset($_GET['kategoria'])) {
     $kategoriaid = (int) $_GET['kategoria'];
 }
-$linkit = array("Etusivu" => "index.php", "Kategoria" => "kategoria.php", "Aihe" => "aihe.php");
+$linkit = array("Etusivu" => "index.php");
 
 naytaNakyma('viestiform.php', array(
     "linkit" => $linkit,

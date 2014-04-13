@@ -21,7 +21,8 @@
 <?php if ($data->action === "newthread") { ?>
             <label class="control-label" for="textarea">Aiheen otsikko:</label>
             <div class="controls center-block">                     
-                <input type="text" id="aiheenotsikko" name="aiheenotsikko" class="input-block-level" placeholder="Viestin otsikko">
+                <input type="text" id="aiheenotsikko" name="aiheenotsikko" class="input-block-level" placeholder="Aiheen otsikko"  <?php if (isset($_SESSION['aihe'])) { ?>
+                       value="<?php echo $_SESSION['aihe']->getNimi(); ?>" <?php } unset($_SESSION['aihe']); ?> >
             </div>
 <?php } ?>
         <label class="control-label" for="textarea">Viestin otsikko:</label>
