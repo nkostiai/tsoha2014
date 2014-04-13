@@ -19,7 +19,7 @@
         <label class="control-label" for="textarea">Kayttajanimi:</label>
         <div class="controls center-block">                     
             <input type="text" id="nimimerkki" name="nimimerkki" class="input-block-level" placeholder="Käyttäjänimi" <?php if (isset($_SESSION['kayttajaform'])) { ?>
-                       value="<?php echo $_SESSION['kayttajaform']->getnimi(); ?>" <?php } ?> >
+                   value="<?php echo htmlspecialchars($_SESSION['kayttajaform']->getnimi()); ?>" <?php } ?> >
         </div>
         <label class="control-label" for="textarea">Salasana:</label>
         <div class="controls center-block">                     
@@ -34,7 +34,7 @@
         <label class="control-label" for="textarea">Sähköpostiosoite:</label>
         <div class="controls center-block">                     
             <input type="text" id="sähköposti" name="sahkopostiosoite" class="input-block-level" placeholder="Sähköposti" <?php if (isset($_SESSION['kayttajaform'])) { ?>
-                       value="<?php echo $_SESSION['kayttajaform']->getSahkoposti(); ?>" <?php } ?> >
+                       value="<?php echo htmlspecialchars($_SESSION['kayttajaform']->getSahkoposti()); ?>" <?php } ?> >
         </div>
         <br>
         <?php if ($data->action === "modify") { ?>

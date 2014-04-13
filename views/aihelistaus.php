@@ -14,7 +14,7 @@
 <?php endif ?>
 <ul class="list-group">
     <?php foreach ($data->aiheet as $aihe): ?>
-    <li class="list-group-item"><a href="aihe.php?aihe=<?php echo $aihe->getid(); ?>"><?php echo $aihe->getNimi(); ?></a> <?php if($data->uudetviestit[$aihe->getId()] > 0){ ?><span class="badge">Uusia viestejä</span><?php } ?>
+    <li class="list-group-item"><a href="aihe.php?aihe=<?php echo $aihe->getid(); ?>"><?php echo htmlspecialchars($aihe->getNimi()); ?></a> <?php if($data->uudetviestit[$aihe->getId()] > 0){ ?><span class="badge">Uusia viestejä</span><?php } ?>
     
         <?php endforeach ?>
 </ul>
