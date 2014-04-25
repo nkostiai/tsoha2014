@@ -42,8 +42,8 @@ class Viesti {
         }
         return $tulokset;
     }
-    
-    public static function getKayttajanViestit($kayttajaid){
+
+    public static function getKayttajanViestit($kayttajaid) {
         $yhteys = getTietokantayhteys();
         $sql = "SELECT viesti.viestiid, viesti.aiheid, to_char(viesti.kirjoitusaika, 'DD-MM-YY  HH24:MI:SS') AS kirjoitusaika, viesti.viimeisin_muokkaus, viesti.viestin_sisalto, kayttaja.nimi AS kirjoittaja, viesti.otsikko FROM viesti, kayttaja WHERE viesti.kirjoittaja = ? ORDER by kirjoitusaika";
         $kysely = $yhteys->prepare($sql);
@@ -59,7 +59,7 @@ class Viesti {
         }
         return $tulokset;
     }
-    
+
     public static function lukumaara() {
         $sql = "SELECT COUNT(*) FROM viesti";
         $kysely = getTietokantayhteys()->prepare($sql);
@@ -179,16 +179,16 @@ class Viesti {
             $kysely->execute(array($this->getAiheID()));
         }
     }
-    
-    public static function poistaKayttajanViestit($id){
+
+    public static function poistaKayttajanViestit($id) {
         $viestit = Viesti::getKayttajanViestit($id);
-        foreach($viestit as $viesti){
+        foreach ($viestit as $viesti) {
             $viesti->poistaKannasta();
         }
     }
-    
+
     public function onkoKelvollinen() {
-        return (trim($this->getViestinSisalto()) == '' || trim($this->getOtsikko()) == ''||strlen($this->getViestinSisalto())>4000||strlen($this->getOtsikko())>300);
+        return (trim($this->getViestinSisalto()) == '' || trim($this->getOtsikko()) == '' || strlen($this->getViestinSisalto()) > 4000 || strlen($this->getOtsikko()) > 100);
     }
 
     public function getVirheet() {

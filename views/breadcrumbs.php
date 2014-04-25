@@ -2,7 +2,7 @@
 <div class="header">
     <ol class="breadcrumb">
         <?php foreach ($data->linkit as $linkkinimi => $linkkiurl): ?>
-        <li class="disabled"><a href="<?php echo $linkkiurl; ?>"><?php echo htmlspecialchars($linkkinimi); ?></a></li>
+            <li class="disabled"><a href="<?php echo $linkkiurl; ?>"><?php echo htmlspecialchars($linkkinimi); ?></a></li>
         <?php endforeach; ?> 
         <?php
         if (isset($_SESSION['kirjautunut'])) {

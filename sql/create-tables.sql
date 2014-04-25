@@ -12,9 +12,7 @@ CREATE TABLE kayttaja(
 KayttajaID SERIAL primary key, --kayttajan yksiloiva ID
 Nimi VARCHAR(20) NOT NULL, --Kayttajan kayttajanimi
 Salasana VARCHAR(36) NOT NULL, --Kayttajan salasana
-Sahkoposti VARCHAR(36) NOT NULL, --Kayttajan sahkopostiosoite
-Adminstatus BOOLEAN NOT NULL default FALSE, --onko kayttaja yllapitaja
-Porttikielto BOOLEAN NOT NULL default FALSE); --onko kayttajalla porttikielto foorumille
+Adminstatus BOOLEAN NOT NULL default FALSE); --onko kayttaja yllapitaja
 
 CREATE TABLE viesti(
 ViestiID SERIAL primary key, --viestin yksilollinen tunniste

@@ -12,19 +12,19 @@
       <?php elseif ($data->action === "modify"): ?>
           action="viestinmuokkaus.php"
       <?php elseif ($data->action === "newthread"): ?>
-          action="aiheenluonti.php?kategoria=<?php echo $data->kategoriaid?>";
-  <?php endif
+          action="aiheenluonti.php?kategoria=<?php echo $data->kategoriaid ?>";
+      <?php endif
       ?>
       method="POST">
 
-      <div class="control-group center-block">
-<?php if ($data->action === "newthread") { ?>
+    <div class="control-group center-block">
+        <?php if ($data->action === "newthread") { ?>
             <label class="control-label" for="textarea">Aiheen otsikko:</label>
             <div class="controls center-block">                     
                 <input type="text" id="aiheenotsikko" name="aiheenotsikko" class="input-block-level" placeholder="Aiheen otsikko"  <?php if (isset($_SESSION['aihe'])) { ?>
-                       value="<?php echo $_SESSION['aihe']->getNimi(); ?>" <?php } unset($_SESSION['aihe']); ?> >
+                           value="<?php echo $_SESSION['aihe']->getNimi(); ?>" <?php } unset($_SESSION['aihe']); ?> >
             </div>
-<?php } ?>
+        <?php } ?>
         <label class="control-label" for="textarea">Viestin otsikko:</label>
         <div class="controls center-block">                     
             <input type="text" id="otsikko" name="otsikko" class="input-block-level" placeholder="Viestin otsikko" <?php if (isset($_SESSION['viesti'])) { ?>

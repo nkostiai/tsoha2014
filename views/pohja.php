@@ -11,11 +11,12 @@
     </head>
     <body>
         <div class="container">
-            
-           <?php
-           
-           require 'views/'.$sivu;
-           ?>
+
+            <?php
+            require 'views/' . $sivu;
+            ?>
+
+
             <div class="well well-sm">
                 <p>&copy; Nikke Kostiainen - TSOHA 2014. Kaikki vasemmuudet pidätetään ja päästetään vapaaksi vain takuita vastaan</p>
             </div>

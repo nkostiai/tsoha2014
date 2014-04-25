@@ -19,7 +19,7 @@
         <label class="control-label" for="textarea">Kayttajanimi:</label>
         <div class="controls center-block">                     
             <input type="text" id="nimimerkki" name="nimimerkki" class="input-block-level" placeholder="Käyttäjänimi" <?php if (isset($_SESSION['kayttajaform'])) { ?>
-                   value="<?php echo htmlspecialchars($_SESSION['kayttajaform']->getnimi()); ?>" <?php } ?> >
+                       value="<?php echo htmlspecialchars($_SESSION['kayttajaform']->getnimi()); ?>" <?php } ?> >
         </div>
         <label class="control-label" for="textarea">Salasana:</label>
         <div class="controls center-block">                     
@@ -30,12 +30,7 @@
         <div class="controls center-block">                     
             <input type="password" id="salasana2" name="salasana2" class="input-block-level" placeholder="Salasana uudestaan"<?php if (isset($_SESSION['kayttajaform'])) { ?>
                        value="<?php echo $_SESSION['kayttajaform']->getsalasana(); ?>" <?php } ?>  >
-        </div>
-        <label class="control-label" for="textarea">Sähköpostiosoite:</label>
-        <div class="controls center-block">                     
-            <input type="text" id="sähköposti" name="sahkopostiosoite" class="input-block-level" placeholder="Sähköposti" <?php if (isset($_SESSION['kayttajaform'])) { ?>
-                       value="<?php echo htmlspecialchars($_SESSION['kayttajaform']->getSahkoposti()); ?>" <?php } ?> >
-        </div>
+        </div> 
         <br>
         <?php if ($data->action === "modify") { ?>
             <?php if (!($_SESSION['kirjautunut']->getkayttajaId() === ($_SESSION['kayttajaform']->getkayttajaid()))) { ?>
@@ -51,18 +46,11 @@
                     <input id="admin" name="admin" type="hidden" value="checked" >
                 </label><br>
             <?php } ?>
-            <label class="checkbox">
-                <input id="ban" name="ban" type="checkbox" value="ban" <?php
-                if ($_SESSION['kayttajaform']->getporttikielto()) {
-                    echo "checked";
-                }
-                ?>> Porttikielto
-            </label><br><br>
             <?php if (!($_SESSION['kirjautunut']->getkayttajaId() === ($_SESSION['kayttajaform']->getkayttajaid()))) { ?>
                 <label class="checkbox">
                     <input id="delete" name="delete" type="checkbox" value="delete"> Poista käyttäjä
                 </label><br>
-            <?php
+                <?php
             }
         }
         unset($_SESSION['kayttajaform']);

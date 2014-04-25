@@ -29,31 +29,31 @@ class Kategoria {
         }
         return $tulokset;
     }
-    
-    public static function getKategorianNimi($kategoriaid){
+
+    public static function getKategorianNimi($kategoriaid) {
         $yhteys = getTietokantayhteys();
         $sql = "SELECT nimi FROM kategoria WHERE kategoriaid = $kategoriaid";
         $kysely = $yhteys->prepare($sql);
         $kysely->execute();
         return $kysely->fetch();
     }
-    
-    public function onkoUusiaViesteja($kayttaja){
+
+    public function onkoUusiaViesteja($kayttaja) {
         $yhteys = getTietokantayhteys();
         $sql = "SELECT count(*) FROM viesti, aihe WHERE viesti.aiheid = aihe.aiheid AND aihe.kategoriaid = ? AND viesti.viestiid NOT IN (SELECT viesti.viestiid FROM luetut, viesti WHERE luetut.kayttajaid = ? AND luetut.viestiid = viesti.viestiid)";
         $kysely = $yhteys->prepare($sql);
         $kysely->execute(array($this->getId(), $kayttaja->getKayttajaID()));
         return $kysely->fetchColumn();
     }
-    
-    public function getNimiById($kategoriaid){
+
+    public function getNimiById($kategoriaid) {
         $yhteys = getTietokantayhteys();
         $sql = "SELECT nimi FROM kategoria where kategoriaid = ?";
         $kysely = $yhteys->prepare($sql);
         $kysely->execute(array($kategoriaid));
         return $kysely->fetchColumn();
     }
-    
+
     public function getNimi() {
         return $this->nimi;
     }
@@ -69,8 +69,8 @@ class Kategoria {
     public function setID($uusiID) {
         $this->kategoriaID = $uusiID;
     }
-    
-    public function getKuvaus(){
+
+    public function getKuvaus() {
         return $this->kuvaus;
     }
 

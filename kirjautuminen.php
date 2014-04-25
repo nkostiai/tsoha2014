@@ -6,7 +6,7 @@ $linkit = array("Etusivu" => "index.php");
 
 if (empty($_POST["username"]) || empty($_POST["password"])) {
     /* Käytetään omassa kirjastotiedostossa määriteltyä näkymännäyttöfunktioita */
-    
+
     naytaNakyma('login.php', array(
         "linkit" => $linkit,
     ));
